@@ -60,7 +60,7 @@ model1.compile(loss='mean_squared_error', optimizer='adam')
 model1.fit(x_train_a, y_train_a, epochs=1, batch_size=1, verbose=2)
 model2.compile(loss='mean_squared_error', optimizer='adam')
 model2.fit(x_train_v, y_train_v, epochs=1, batch_size=1, verbose=2)
-#predicting 246 values, using past 20 from the train data
+#predicting newer values, using past 20 from the train data
 inputs_r = g_dr[len(g_dr) - len(valid) - 20:].values
 inputs_r = inputs_r.reshape(-1,1)
 inputs_r  = scaler.transform(inputs_r)
