@@ -1,5 +1,6 @@
 #setting up a NN for winner prediction from a competing set of three Telecommunication companies
 #Using stock market data for the three companies
+#machinelearningmastery.com/encoder-decoder-attention-sequence-to-sequence-prediction-keras
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
