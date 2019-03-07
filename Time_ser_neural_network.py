@@ -25,11 +25,7 @@ state = 1*np.column_stack((state_a,state_r,state_v))
 # Array storing decoded seq.
 winner = [table[np.argmax(entry)] for entry in state]
 # scatter plot with color scheme
-dict_color = {'A':'Green','R':'Red','V':'Blue'}
-#i=1
-#for entry in w:
-#	plt.scatter(i,1,color=dict_color[entry])
-#	i=i+1	
+dict_color = {'A':'Green','R':'Red','V':'Blue'}	
 #training data-set
 train = state[0:50]
 valid = state[50:]
@@ -47,8 +43,7 @@ model.add(LSTM(units=50))
 model.add(Dense(x_train.shape[2]))
 model.compile(loss='mean_squared_error', optimizer='adam')
 model.fit(x_train, y_train, epochs=1, batch_size=1, verbose=2)
-
-#predicting 99 values, using past t from the train data
+#predicting other values, using past t from the train data
 inputs = state[len(state) - len(valid) - t:]
 x_test=[]
 for i in range(t,inputs.shape[0]):
@@ -59,6 +54,7 @@ print winner_predict
 winner_predict_bin = np.column_stack((np.multiply(winner_predict[:,0]>winner_predict[:,1] , winner_predict[:,0]>winner_predict[:,2]),np.multiply(winner_predict[:,1]>winner_predict[:,0] , winner_predict[:,1]>winner_predict[:,2]),np.multiply(winner_predict[:,2]>winner_predict[:,0] , winner_predict[:,2]>winner_predict[:,1])))
 winner_predict_char = [table[np.argmax(entry)] for entry in winner_predict_bin]
 print winner_predict_bin
+#for plotting 
 #i=1
 #for entry in winner:
 #	plt.scatter(i,1,color=dict_color[entry])
@@ -68,6 +64,7 @@ print winner_predict_bin
 #	plt.scatter(len(train)+i-1,2,color=dict_color[entry])
 #	i=i+1
 #plt.show()
+
 truth_val = 0
 #print len(range(t,inputs.shape[0])),len(winner_predict_bin)
 for i in range(t,len(winner_predict_bin)):
@@ -75,6 +72,3 @@ for i in range(t,len(winner_predict_bin)):
 	truth_val= truth_val + np.array_equal(winner_predict_bin[i],state[i])
 	print truth_val
 print truth_val,len(x_test)
-#print [table[np.argmax(entry)] for entry in 1*winner_predict_bin]
-#print '**********************'
-
